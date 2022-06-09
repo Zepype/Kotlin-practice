@@ -1,0 +1,50 @@
+fun main(){
+    var operand:Int?
+    println("Hello! This is a simple (only Integer) calculator!")
+
+    while(true){
+        print("Please enter your first number: ")
+        var first: Int? = readLine()?.toIntOrNull()
+        first = nullCheck(first)
+
+        print("Please enter your second number. Do not forget about zero division! : ")
+        var second: Int? = readLine()?.toIntOrNull()
+        second = nullCheck(second)
+
+        println("1. Addition\n2. Subtraction\n3. Multiplication\n4. Division")
+        print("Choose option to do:  ")
+        operand = readLine()?.toIntOrNull()
+        operand = operandCheck(operand)
+        if(operand == 4 && second == 0) println("Division by zero")
+        else chosenOperation(first, second, operand)
+
+    }
+}
+fun nullCheck(arg:Int?):Int?{  // Check if num is null
+    var res = arg
+    while(res !in Integer.MIN_VALUE..Integer.MAX_VALUE){
+        print("Incorrect number! Please enter another one: ")
+        res = readLine()?.toIntOrNull()
+    }
+    return res
+}
+
+fun operandCheck(op:Int?):Int?{ // Check if operand in corresponding range
+    var res = op
+    while(res !in 1..4){
+        print("Incorrect operation! Please choose corresponding option from 1 to 4:  ")
+        res = readLine()?.toIntOrNull()
+    }
+    return res
+}
+
+fun chosenOperation(f:Int?, s:Int?, op:Int?){  // Chosen operand
+    if (f != null && s != null) {
+        when(op){
+            1 -> println("Addition result is: ${f+s}")
+            2 -> println("Subtraction result is: ${f - s}")
+            3 -> println("Multiplication result is: ${f * s}")
+            4 -> println("Division result is: ${f / s}")
+        }
+    }
+}
