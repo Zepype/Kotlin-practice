@@ -1,5 +1,5 @@
 fun main(){
-    var operand:Int?
+    
     println("Hello! This is a simple (only Integer) calculator!")
 
     while(true){
@@ -13,7 +13,7 @@ fun main(){
 
         println("1. Addition\n2. Subtraction\n3. Multiplication\n4. Division")
         print("Choose option to do:  ")
-        operand = readLine()?.toIntOrNull()
+        var operand = readLine()?.toIntOrNull()
         operand = operandCheck(operand)
         if(operand == 4 && second == 0) println("Division by zero")
         else chosenOperation(first, second, operand)
