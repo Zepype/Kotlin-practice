@@ -1,0 +1,35 @@
+import kotlin.system.exitProcess
+
+fun main(){
+    println("Let's create a simple table with names and salaries\nRemember: Names can consists not more than 10 letters")
+    println("Enter names of your *employees*, using (,) as separator ")
+
+    val namesList = readLine().orEmpty().split(',')
+    checkLength(namesList, maxSize=10)
+
+    println("Enter corresponding salaries to these employees\nRemember: Do not forget using (,) as separator" +
+            "\nP.S.: Max size is 6 digits")
+    val salariesList = readLine().orEmpty().split(',')
+    checkLength(salariesList, maxSize = 6)
+
+    if (namesList.size != salariesList.size) println("The table can't be created because of different sizes:" +
+            "Num of names: ${namesList.size} | Num of salaries: ${salariesList.size}")
+    createTable(namesList, salariesList)
+}
+
+fun checkLength(list:List<String>, maxSize:Int) {  // Check length of given List
+    for (name in list){
+        if (name.length > maxSize){
+            println("The ($name) entity has incorrect length. | $name must be equal or less than $maxSize")
+            exitProcess(0)
+        }
+    }
+}
+fun createTable(namesList:List<String>,salaries:List<String>){  // Creating table
+    println("=".repeat(40))
+    for (name in namesList){
+        val salary = salaries[namesList.indexOf(name)]
+        println("| Name: $name | Salary: $salary$|")
+    }
+    println("=".repeat(40))
+}
