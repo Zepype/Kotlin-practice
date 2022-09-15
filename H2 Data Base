@@ -1,0 +1,120 @@
+/*
+ * Created by Trofimov A.
+ * Group: 19-SAI
+ */
+ 
+import java.sql.Connection
+import java.sql.DriverManager
+import java.sql.ResultSet
+import java.sql.Statement
+ 
+ 
+fun main(){
+ 
+    Class.forName("org.h2.Driver")
+    val con: Connection = DriverManager.getConnection("jdbc:h2:file:C:/Users/Anton/IdeaProjects/Coffee/db")
+ 
+    val st: Statement = con.createStatement()
+ 
+    // Creating table
+    var sql = "CREATE TABLE Chocolate " +
+            "(id INTEGER not NULL AUTO_INCREMENT, " +
+            " Taste VARCHAR(10), " +
+            " Type VARCHAR(50), " +
+            " Temperature VARCHAR(3), " +
+            " PRIMARY KEY ( id ))"
+ 
+    st.execute(sql)
+    println("Table is created in given database\n")
+ 
+    // Inserting data in table
+ 
+    sql = insertData("Sweet", "Milk Chocolate with melting speed", "85F")
+    st.executeUpdate(sql)
+ 
+    sql = insertData("Sweet", "White Chocolate", "90F")
+    st.executeUpdate(sql)
+    sql  = insertData("Bitter", "Dark Chocolate", "90F")
+    st.executeUpdate(sql)
+    sql = insertData("Bitter", "Semisweet Chocolate", "83F")
+    st.executeUpdate(sql)
+    sql = insertData("Sweet", "Unsweetened Chocolate", "94F")
+    st.executeUpdate(sql)
+    sql = insertData("Bitter", "Cocoa Powder", "82F")
+    st.executeUpdate(sql)
+    sql = insertData("Sweet", "German Chocolate", "94F")
+    st.executeUpdate(sql)
+    sql = insertData("Sweet", "Couverture Chocolate", "81F")
+    st.executeUpdate(sql)
+    sql = insertData("Bitter", "Ruby Chocolate", "83F")
+    st.executeUpdate(sql)
+    sql = insertData("Sweet", "Gianduja Chocolate", "87F")
+    st.executeUpdate(sql)
+    sql = insertData("Bitter", "Candy Coating Chocolate", "82F")
+    st.executeUpdate(sql)
+    sql = insertData("Sweet", "Vegan Chocolate", "89F")
+    st.executeUpdate(sql)
+    sql = insertData("Sweet", "Raw chocolate", "80F")
+    st.executeUpdate(sql)
+    sql = insertData("Sweet", "Bitter Modeling chocolate", "82F")
+    st.executeUpdate(sql)
+    sql = insertData("Bitter", "Organic chocolate", "84F")
+    st.executeUpdate(sql)
+    sql = insertData("Sweet", "Compound chocolate", "87F")
+    st.executeUpdate(sql)
+    sql = insertData("Bitter", "Skimmed milk", "81F")
+    st.executeUpdate(sql)
+    sql = insertData("Sweet", "Buttermilk chocolate", "83F")
+    st.executeUpdate(sql)
+    sql = insertData("Bitter", "Kim milk chocolate", "87F")
+    st.executeUpdate(sql)
+    sql = insertData("Sweet", "Fruit mixed chocolate", "81F")
+    st.executeUpdate(sql)
+    sql = insertData("Bitter", "Caramelized White Chocolate", "90F")
+    st.executeUpdate(sql)
+ 
+    // Executing first SELECT statement
+ 
+    sql = "SELECT id, Taste, Type, Temperature FROM Chocolate"
+ 
+    var rs:ResultSet = st.executeQuery(sql)
+ 
+    while (rs.next()) {
+        // Retrieve by column name
+        val id = rs.getInt("id")
+        val taste = rs.getString("Taste")
+        val type = rs.getString("Type")
+        val temperature = rs.getString("Temperature")
+ 
+        // Display values
+        println("ID: $id | Taste: $taste | Type: $type | Temperature: $temperature")
+    }
+    println("===================================================================================")
+ 
+    // Executing second SELECT statement
+ 
+    sql = "SELECT * FROM Chocolate WHERE (Taste='Sweet')"
+ 
+    rs = st.executeQuery(sql)
+ 
+    while (rs.next()) {
+        // Retrieve by column name
+        val id = rs.getInt("id")
+        val taste = rs.getString("taste")
+        val type = rs.getString("type")
+        val temperature = rs.getString("temperature")
+ 
+        // Display values
+        println("ID: $id | Taste: $taste | Type: $type | Temperature: $temperature")
+    }
+ 
+    // Closing any connections
+ 
+    st.close();
+    con.close();
+}
+ 
+    // Insert Data function 
+fun insertData(taste:String, type:String, temperature:String ) : String {
+    return "INSERT INTO Chocolate(Taste, Type, Temperature) VALUES ('$taste', '$type', '$temperature')"
+}
